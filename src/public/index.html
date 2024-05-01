@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SSE Test Page</title>
+</head>
+<body>
+<h1>Server-Sent Events Test</h1>
+<div id="messages"></div>
+<script>
+  const eventSource = new EventSource('http://localhost:3000/sse/stream');
+  eventSource.onmessage = function(event) {
+    console.log('New event from server:', event.data);
+    document.getElementById('messages').innerText += `\n${event.data}`;
+  };
+  eventSource.onerror = function(error) {
+    console.error('EventSource failed:', error);
+    eventSource.close();
+  };
+</script>
+</body>
+</html>
